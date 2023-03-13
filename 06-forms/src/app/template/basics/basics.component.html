@@ -1,0 +1,92 @@
+<h2>Template: Basics</h2>
+<hr>
+<div class="row">
+  <div class="col">
+
+    <form (ngSubmit)="save()"
+          #basicForm="ngForm"
+          autocomplete="off" >
+
+      <!-- Product Field -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Product</label>
+          <div class="col-sm-9">
+            <input type="text"
+                   class="form-control"
+                   [ngModel]="initForm.product"
+                   name="product"
+                   placeholder="Product name..."
+                   required
+                   minlength="3">
+
+            <span class="form-text text-danger"
+                  *ngIf="nameValid()" >
+            Minimum 3 characters </span>
+
+          </div>
+      </div>
+
+      <!-- Price Field -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Price</label>
+          <div class="col-sm-9">
+            <input type="number"
+                   [ngModel]="initForm.price"
+                   name="price"
+                   class="form-control"
+                   placeholder="Price..."
+                   required>
+
+            <span class="form-text text-danger"
+                   *ngIf="priceValid()" >
+            Price must be greater than 0 </span>
+          </div>
+      </div>
+
+      <!-- Amount Field -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Amount</label>
+          <div class="col-sm-9">
+            <input type="number"
+                   [ngModel]="initForm.amount"
+                   customMin
+                   name="amount"
+                   [minimo]="1"
+                   required
+                   class="form-control"
+                   placeholder="Amount...">
+
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button
+          type="submit"
+          [disabled]="basicForm.invalid"
+          class="btn btn-primary float-end">
+            Save
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ basicForm.valid  }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ basicForm.pristine  }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ basicForm.touched  }}</pre>
+
+    <span>Value</span>
+    <pre>{{ basicForm.value | json  }}</pre>
+  </div>
+</div>

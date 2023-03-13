@@ -1,0 +1,84 @@
+<h2>Reactive: Dynamics</h2>
+<hr />
+
+<form
+  [formGroup]="myForm"
+  (ngSubmit)="save()">
+  <!-- --- Name --- -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Name:</label>
+    <div class="col-sm-9">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="name of the person"
+        formControlName="name"
+        minlength="3"
+      />
+      <span class="form-text text-danger" *ngIf="validateField('name')">
+        Minimum 3 characters
+      </span>
+    </div>
+  </div>
+
+  <!-- --- add favorite --- -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Add:</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="add favorite"
+          [formControl]="newFavorite"
+          (keyup.enter)="add()"
+           />
+
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="add()">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Favorites games --- -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Favorites:</label>
+    <div class="col-sm-9" formArrayName="favorites" >
+      <div class="input-group mb-1"
+           *ngFor="let favorites of favoForm.controls; let i = index">
+        <input
+          class="form-control"
+          [formControlName]="i"/>
+
+        <button
+          class="btn btn-outline-danger"
+          type="button"
+          (click)="delete(i)">
+            Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button
+            type="submit"
+            class="btn btn-primary float-end">
+            Save
+      </button>
+    </div>
+  </div>
+</form>
+
+<span>Valid</span>
+<pre>{{ myForm.valid }}</pre>
+<span>Value</span>
+<pre>{{ myForm.value | json }}</pre>
+<span>Add game</span>
+<pre>{{ newFavorite.valid }}</pre>
+
+
